@@ -1,0 +1,130 @@
+<!-- @author: Simone Capelli
+     @created: 2018-01-17
+     @description: Community subscription
+-->
+<!-- http://www.sfdcpoint.com/salesforce/salesforce-web-to-lead-form-with-recaptcha/ -->
+<apex:page showHeader="false" standardStylesheets="false" sidebar="false" docType="html-5.0" applyBodyTag="False" applyHtmlTag="False">
+    <head>
+        <title>Ohana Community Italia - Subscribe</title>
+        <apex:slds />
+        
+        
+    </head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=UTF-8" />
+    <apex:includescript value="https://www.google.com/recaptcha/api.js?" />
+    <apex:includescript value="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js" />
+    
+    <script>
+    function timestamp() { 
+        var response = document.getElementById("g-recaptcha-response"); 
+        if (response == null || response.value.trim() == "") {
+            var elems = JSON.parse(document.getElementsByName("captcha_settings")[0].value);
+            elems["ts"] = JSON.stringify(new Date().getTime());
+            document.getElementsByName("captcha_settings")[0].value = JSON.stringify(elems); 
+            $('#submitBtn').attr('disabled', true);
+        } 
+    } 
+    setInterval(timestamp, 500); 
+    
+    function recaptcha_callback(){
+        $('#submitBtn').removeAttr('disabled');
+    };
+    function recaptcha_callback_expired(){
+        $('#submitBtn').attr('disabled', true);
+    };
+    function recaptcha_callback_error(){
+        $('#submitBtn').attr('disabled', true);
+    };
+    </script>
+    
+    <body class="slds-scope">
+        <div style="background-color:#e5e9fb; text-align:center">
+            <img src="{!URLFOR($Resource.OhanaCommunitySiteRsc, '/img/OhanaCommunityLogo.png')}" />
+        </div>
+        <div class="slds-page-header" style="text-align: center;">
+            <div class="slds-media">
+                <div class="slds-media__body">
+                    <h1 class="slds-page-header__title slds-truncate slds-align-middle" title="New Community Subscription">Iscrizione Ohana Community Italia</h1>
+                    <p class="slds-text-body slds-line-height_reset">
+                        Fill in the form.<br/>
+                        You'll soon receive a Slack invitation mail to join the <strong>Ohana Community</strong>!
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slds-align--absolute-center" style="margin: 10px !important;">
+            <form action="https://webto.salesforce.com/servlet/servlet.WebToCase?encoding=UTF-8" method="POST" class="slds-form slds-form_horizontal"  style="width: 500px;">
+                <input type="hidden" name='captcha_settings' value='{"keyname":"reCAPTCHA","fallback":"true","orgId":"00D0O000000XXXX","ts":""}' />
+                <input type="hidden" name="orgid" value="00D0O000000sHBp" />
+                <input type="hidden" id="recordType" name="recordType" value="0120O0000003Zq2" />
+                <input type="hidden" name="retURL" value="https://ohana-community-developer-edition.eu9.force.com/SubscribeConfirmation" />
+                <input type="hidden" id="subject" name="subject" value="Iscrizione Community" /><br/>
+                <input type="hidden" id="priority" name="priority" value="High" /><br/>
+                
+                <div class="slds-form-element slds-container--small">
+                    <label class="slds-form-element__label slds-size_1-of-2 slds-max-small-size_1-of-1" for="name">Firstname *</label>
+                    <div class="slds-form-element__control slds-size_1-of-2 slds-max-small-size_1-of-1">
+                        <input id="00N0O00000Fr60z" name="00N0O00000Fr60z" class="slds-input" type="text" maxlength="80" value="" required="true"/>
+                    </div>
+                </div>
+                <div class="slds-form-element slds-container--small">
+                    <label class="slds-form-element__label" for="name">Lastname *</label>
+                    <div class="slds-form-element__control">
+                        <input id="00N0O00000Fr614" name="00N0O00000Fr614" class="slds-input" type="text" maxlength="80" value="" required="true"/>
+                    </div>
+                </div> 
+                <div class="slds-form-element slds-container--small">
+                    <label class="slds-form-element__label" for="email">Email *</label>
+                    <div class="slds-form-element__control">
+                        <input id="email" name="email" class="slds-input" type="email" maxlength="80" value="" required="true"/>
+                    </div>
+                </div>
+                <div class="slds-form-element slds-container--small">
+                    <label class="slds-form-element__label" for="phone">Phone</label>
+                    <div class="slds-form-element__control">
+                        <input id="phone" name="phone" class="slds-input" type="text" maxlength="40" value=""/>
+                    </div>
+                </div>
+                <div class="slds-form-element slds-container--small">
+                    <label class="slds-form-element__label" for="phone">Company *</label>
+                    <div class="slds-form-element__control">
+                        <input id="company" name="company" class="slds-input" type="text" maxlength="80" value="" required="true"/>
+                    </div>
+                </div>
+                
+                
+                <div class="slds-form-element slds-container--small">
+                    <label class="slds-form-element__label" for="description">Salesforce.com experience*</label>
+                    <div class="slds-form-element__control">
+                        <textarea name="description" id="description" class="slds-textarea" required="true"></textarea>
+                    </div>
+                </div>
+                
+                <div class="slds-form-element slds-container--small">
+                    
+                    <div class="slds-form-element__control">
+                        <div class="g-recaptcha" data-sitekey="XXXXXXXXXXXXXXXXX" 
+                             data-callback="recaptcha_callback" 
+                             data-expired-callback="recaptcha_callback_expired"
+                             data-error-callback="recaptcha_callback_error"></div>
+                    </div>
+                </div>
+                
+                <div class="slds-form-element slds-container--small">
+                    
+                    <div class="slds-form-element__control  " style="text-align: right;">
+                        <input id="submitBtn" class="slds-button slds-button--brand" type="submit" name="submit"  style="width: 100%;"/>
+                    </div>
+                </div>
+                <div class="slds-form-element slds-container--small">
+                    <small>* Mandatory field</small>
+                </div>
+            </form>
+        </div>
+        
+        
+    </body>
+    
+</apex:page>

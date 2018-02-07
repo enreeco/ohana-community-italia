@@ -1,0 +1,26 @@
+<!-- @author: Enrico Murru
+	 @created: 2018-01-18
+	 @description: Case Standard Controller Page to invice people on slack (getting info from Case)
+-->
+<apex:page standardController="Case" extensions="OhanaCommunityInvitationController">
+    <apex:slds />
+    <apex:form >
+        <div class="slds-align--absolute-center" style="margin: 10px !important;">
+            <apex:outputPanel rendered="{!NOT(ISBLANK(response))}">
+                <pre>{!response}</pre>
+            </apex:outputPanel>
+            <apex:outputPanel layout="block" rendered="{!ISBLANK(response)}">    
+                <apex:commandButton disabled="{!NOT(enableInvitation)}" 
+                                    styleclass="slds-button slds-button--brand" 
+                                    value="{!IF(ticket.IsClosed,'Re-','')+'Invite to Slack'}" 
+                                    action="{!inviteToSlack}"/>
+            </apex:outputPanel>
+            <br/>
+        </div>
+        <div class="slds-align--absolute-center" style="margin: 10px !important;">
+            <div style="background-color:#e5e9fb; text-align:center">
+                <img src="https://a.sfdcstatic.com/content/dam/www/ocms-backup/assets/images/careers/ohana-logo.jpg" />
+            </div>
+        </div>
+    </apex:form>
+</apex:page>
