@@ -57,7 +57,7 @@
         <div class="slds-align--absolute-center" style="margin: 10px !important;">
             <form action="https://webto.salesforce.com/servlet/servlet.WebToCase?encoding=UTF-8" method="POST" class="slds-form slds-form_horizontal"  style="width: 500px;">
                 <input type="hidden" name='captcha_settings' value='{"keyname":"reCAPTCHA","fallback":"true","orgId":"00D0O000000XXXX","ts":""}' />
-                <input type="hidden" name="orgid" value="00D0O000000sHBp" />
+                <input type="hidden" name="orgid" value="00D0O000000XXXXX" />
                 <input type="hidden" id="recordType" name="recordType" value="0120O0000003Zq2" />
                 <input type="hidden" name="retURL" value="https://ohana-community-developer-edition.eu9.force.com/SubscribeConfirmation" />
                 <input type="hidden" id="subject" name="subject" value="Iscrizione Community" /><br/>
